@@ -1,4 +1,5 @@
 {"EXECUTION_ROLE_ARN": "arn:aws:iam::014669633018:role/Take-On-Service",
 "INPUT_QUEUE_ARN": "arn:aws:sqs:eu-west-2:014669633018:TakeOn-Validation-SaveToDB",
 "INPUT_QUEUE_URL": "https://sqs.eu-west-2.amazonaws.com/014669633018/TakeOn-Validation-SaveToDB",
-"ERROR_QUEUE_URL": "https://sqs.eu-west-2.amazonaws.com/014669633018/TakeOn-Validation-HandledErrors"}
+"ERROR_QUEUE_URL": "https://sqs.eu-west-2.amazonaws.com/014669633018/TakeOn-Validation-HandledErrors",
+"BUSINESS_LAYER_ENDPOINT": "/validation/saveOutputs"}

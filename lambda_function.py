@@ -1,6 +1,7 @@
 from parse_validation import parse_validation_save_data
 import json
 import requests
+import os
 
 
 def lambda_handler(event, context):
@@ -9,10 +10,8 @@ def lambda_handler(event, context):
     extracted_queue_data = queue_data.strip('\n')
     data_to_be_parsed = json.loads(extracted_queue_data)
 
+    business_layer_endpoint = os.getenv("BUSINESS_LAYER_ENDPOINT")
     data_to_business_layer = parse_validation_save_data(data_to_be_parsed)
-
-    business_layer_endpoint = '/contributor/validationOutputSave'
-    business_layer_endpoint_local = 'http://192.168.99.113:31303/contributor/validationOutputSave'
 
     try:
         request_response = requests.post(business_layer_endpoint, data_to_business_layer)
