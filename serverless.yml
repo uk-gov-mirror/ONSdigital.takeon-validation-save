@@ -57,14 +57,14 @@ functions:
 
     vpc:
       securityGroupIds:
-        - sg-06881d0a7f22108fd
+        - sg-06fc64d77bd38bea1
       subnetIds:
-        - subnet-07cb86ea5c7e94651
+        - subnet-0cbc63301c37a86ca
     events:
       - sqs:
          arn: ${file(./serverless-config.json):INPUT_QUEUE_ARN}
          batchSize: 1
-    timeout: 30
+    timeout: 3
     memorySize: 512
     layers:
       - arn:aws:lambda:eu-west-2:014669633018:layer:takeon-python-layer:2

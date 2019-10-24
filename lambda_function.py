@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     data_to_business_layer = parse_validation_save_data(data_to_be_parsed)
 
     try:
-        request_response = requests.post(business_layer_endpoint, data_to_business_layer)
+        request_response = requests.post(business_layer_endpoint, json.dumps(data_to_business_layer))
         print('Response: ' + str(request_response))
         print(request_response.text, "TEXT")
         print(request_response.content, "CONTENT")
