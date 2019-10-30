@@ -21,7 +21,8 @@ Lambda URL - https://eu-west-2.console.aws.amazon.com/lambda/home?region=eu-west
 
 
 ## Sample Input JSON
-The following JSON can be manually put in the input 'TakeOn-Validation-SaveToDB' queue to test this lambda
+The following JSON can be manually put in the input 'TakeOn-Validation-SaveToDB' queue to test this lambda    
+
 [ 
    { 
       "formula":"abs(20 - 0) > 20000 AND 20 > 0 AND 0 > 0",
