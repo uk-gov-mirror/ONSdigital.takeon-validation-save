@@ -2,9 +2,11 @@ from parse_validation import parse_validation_save_data
 import json
 import requests
 import os
+import boto3
 
 
 def lambda_handler(event, context):
+    lambdaName = "Validation Save: "
     print('Event: ' + str(event))
     queue_data = event['Records'][0]['body']
     extracted_queue_data = queue_data.strip('\n')
@@ -19,11 +21,18 @@ def lambda_handler(event, context):
         print(request_response.text, "TEXT")
         print(request_response.content, "CONTENT")
         print(request_response.status_code, "STATUS CODE")
-    except:
-        request_response = ''
-        print("{\"Error\": \"Problem with call to Business Layer\"}")
+    except Exception as error:
+        # request_response = ''
+        errorMessage = lambdaName + " Problem with call to Business Layer " + error
+        error_queue(errorMessage)
+        print(errorMessage)
         print('Response: ' + str(request_response))
         print(request_response.content, "CONTENT")
         print(request_response.text, "TEXT")
         print(request_response.status_code, "STATUS CODE")
-        return request_response.content
+        return errorMessage
+
+def error_queue(errorMessage):
+    queue_url = os.getenv("ERROR_QUEUE_URL")
+    sqs = boto3.client("sqs")
+    sqs.send_message(QueueUrl=queue_url, MessageBody=errorMessage)
