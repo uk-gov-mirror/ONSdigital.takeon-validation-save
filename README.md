@@ -1,5 +1,4 @@
 # takeon-validation-save
-A Template repository having various Integration and Services
 
 ## About this repo
 This repo is a lambda function that reads from 'TakeOn-Validation-SaveToDB' queue and then calls the business layer endpoint to save into 'validationoutput' table in the database.
