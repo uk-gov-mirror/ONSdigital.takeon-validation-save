@@ -12,6 +12,8 @@ def lambda_handler(event, context):
     extracted_queue_data = queue_data.strip('\n')
     data_to_be_parsed = json.loads(extracted_queue_data)
 
+    request_response = "{\"Error\": \"No data found\"}"
+
     business_layer_endpoint = os.getenv("BUSINESS_LAYER_ENDPOINT")
     data_to_business_layer = parse_validation_save_data(data_to_be_parsed)
 
@@ -22,7 +24,7 @@ def lambda_handler(event, context):
         print(request_response.content, "CONTENT")
         print(request_response.status_code, "STATUS CODE")
     except Exception as error:
-        errorMessage = lambdaName + " Problem with call to Business Layer " + error
+        errorMessage = lambdaName + " Problem with call to Business Layer " + str(error)
         error_queue(errorMessage)
         print(errorMessage)
         print('Response: ' + str(request_response))
