@@ -11,6 +11,7 @@ def parse_validation_save_data(json_input):
         formula_dict['survey'] = row['metadata']['survey']
         formula_dict['validationid'] = row['metadata']['validationid']
         formula_dict['bpmid'] = row['metadata']['bpmid']
+        formula_dict['instance'] = 0
         outputJson.append(formula_dict)
     
     validation_outputs = {}

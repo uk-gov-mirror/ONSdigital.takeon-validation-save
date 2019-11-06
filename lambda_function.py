@@ -1,30 +1,39 @@
 from parse_validation import parse_validation_save_data
 import json
 import requests
+import os
+import boto3
 
 
 def lambda_handler(event, context):
+    lambdaName = "Validation Save: "
     print('Event: ' + str(event))
     queue_data = event['Records'][0]['body']
     extracted_queue_data = queue_data.strip('\n')
     data_to_be_parsed = json.loads(extracted_queue_data)
 
+    request_response = "{\"Error\": \"No data found\"}"
+
+    business_layer_endpoint = os.getenv("BUSINESS_LAYER_ENDPOINT")
     data_to_business_layer = parse_validation_save_data(data_to_be_parsed)
 
-    business_layer_endpoint = '/contributor/validationOutputSave'
-    business_layer_endpoint_local = 'http://192.168.99.113:31303/contributor/validationOutputSave'
-
     try:
-        request_response = requests.post(business_layer_endpoint, data_to_business_layer)
+        request_response = requests.post(business_layer_endpoint, json.dumps(data_to_business_layer))
         print('Response: ' + str(request_response))
         print(request_response.text, "TEXT")
         print(request_response.content, "CONTENT")
         print(request_response.status_code, "STATUS CODE")
-    except:
-        request_response = ''
-        print("{\"Error\": \"Problem with call to Business Layer\"}")
+    except Exception as error:
+        errorMessage = lambdaName + " Problem with call to Business Layer " + str(error)
+        error_queue(errorMessage)
+        print(errorMessage)
         print('Response: ' + str(request_response))
         print(request_response.content, "CONTENT")
         print(request_response.text, "TEXT")
         print(request_response.status_code, "STATUS CODE")
-        return request_response.content
+        return errorMessage
+
+def error_queue(errorMessage):
+    queue_url = os.getenv("ERROR_QUEUE_URL")
+    sqs = boto3.client("sqs")
+    sqs.send_message(QueueUrl=queue_url, MessageBody=errorMessage)
