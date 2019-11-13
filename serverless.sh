@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd validation-save-deploy-repository
+cd save-deploy-repository
 echo Packaging serverless bundle...
 serverless package --package pkg
 echo Deploying to AWS...
