@@ -13,3 +13,4 @@ decorator==4.4.0
 boto3==1.9.155
 botocore==1.12.181
 pandas==0.25.3
+numpy==1.17.4
