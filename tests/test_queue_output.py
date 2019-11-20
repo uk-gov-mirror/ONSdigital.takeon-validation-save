@@ -33,7 +33,8 @@ def json_output():
         'period': '201912',
         'survey': '003',
         'validationid': 23412,
-        'bpmid': ''},
+        'bpmid': '',
+        'instance': 0},
         {'formula': '12.3 != ""',
         'triggered': True,
         'validation': 'Value present',
@@ -41,7 +42,8 @@ def json_output():
         'period': '201912',
         'survey': '003',
         'validationid': 23413,
-        'bpmid': ''}]}
+        'bpmid': '',
+        'instance': 0}]}
 
 
 def test_output_data(json_input, json_output):
