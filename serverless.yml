@@ -56,7 +56,7 @@ functions:
       - sqs:
          arn: ${file(./serverless-config.json):INPUT_QUEUE_ARN}
          batchSize: 1
-    timeout: 20
+    timeout: 25
     memorySize: 512
     layers:
       - arn:aws:lambda:eu-west-2:014669633018:layer:takeon-python-layer:2
